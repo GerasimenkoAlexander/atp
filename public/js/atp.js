@@ -8,8 +8,8 @@
     var Atp = function (customOptions) {
 
         var options = $.extend({
-            triggerSelector : '#atpe',
-            rootId          : 'atp',
+            triggerSelector : '.atpe',
+            rootClass       : 'atp',
             rowClass        : 'pRow',
             pointClass      : 'pPoint',
             coreClass       : 'pCore',
@@ -28,14 +28,16 @@
         this.init = function () {
             $targetElement = $(options.triggerSelector);
             if ($targetElement) {
-                generateMarkup();
-                hangEvents();
+                $targetElement.each(function(index, elem){
+                    generateMarkup($(elem));
+                    hangEvents($(elem));
+                });
             }
         };
 
-        var generateMarkup = function () {
+        var generateMarkup = function ($elem) {
             var root = document.createElement('div');
-            root.id = options.rootId;
+            root.className = options.rootClass;
 
             for (var i = 0; i < 3; i++) {
                 var div = document.createElement('div');
@@ -54,69 +56,75 @@
                 }
                 root.appendChild(div);
             }
-            $targetElement.after(root);
-            $root = $('#' + options.rootId);
+            $elem.after(root);
         };
 
-        var hangEvents = function () {
-            $points = $('.' + options.pointClass);
-            $points.on('mousedown touchstart', function () {
+        var hangEvents = function ($elem) {
+            $root = $elem.next('.' + options.rootClass);
+            $points = $root.find('.' + options.pointClass);
 
-                var valid = false;
-                var cN = options.activeClass;
-                var code = [];
+            //make closure for $root and $points
+            (function($root, $points){
 
-                $points.removeClass(cN + ' ' + options.validClass);
-                $('.' + options.lineClass).remove();
-                $(this).addClass(options.activeClass);
-                code.push($(this).data('char'));
-                $point = $(this);
+                $points.on('mousedown touchstart', function () {
 
-                $root.on('mouseleave touchleave', function (e) {
+                    var valid = false;
+                    var cN = options.activeClass;
+                    var code = [];
 
-                    var elem = e.toElement || e.relatedTarget;
-                    if (elem.className === options.lineClass) {
-                        return false;
-                    }
-                    $(this).off();
-                    $points.off('mouseover touchenter');
-                });
+                    $points.removeClass(cN + ' ' + options.validClass);
+                    $root.find('.' + options.lineClass).remove();
+                    $(this).addClass(options.activeClass);
+                    code.push($(this).data('char'));
+                    $point = $(this);
 
-                $root.on('mouseup touchend', function () {
-                    $(this).off();
-                    $points.off('mouseover touchenter');
-                });
+                    $root.on('mouseleave touchleave', function (e) {
 
-                $points.on('mouseover touchenter', function () {
-                    if (!$(this).hasClass(options.activeClass)) {
-
-                        $(this).addClass(cN);
-                        //this must be before selection
-                        var $aP = $('.' + options.pointClass + '.' + options.activeClass);
-
-                        code.push($(this).data('char'));
-
-                        if (!valid && $aP.length > 4) {
-                            valid = true;
-                            $aP.addClass(options.validClass);
-                            cN += ' ' + options.validClass;
+                        var elem = e.toElement || e.relatedTarget;
+                        if (elem.className === options.lineClass) {
+                            return false;
                         }
+                        $(this).off();
+                        $points.off('mouseover touchenter');
+                    });
 
-                        var p1 = $point.offset();
-                        var p2 = $(this).offset();
-                        drawLine(p1.left, p1.top, p2.left, p2.top);
-                        $point = $(this);
-                    }
+                    $root.on('mouseup touchend', function () {
+                        $(this).off();
+                        $points.off('mouseover touchenter');
+                    });
+
+                    $points.on('mouseover touchenter', function () {
+                        if (!$(this).hasClass(options.activeClass)) {
+
+                            $(this).addClass(cN);
+                            //this must be before selection
+                            var $aP = $root.find('.' + options.pointClass + '.' + options.activeClass);
+
+                            code.push($(this).data('char'));
+
+                            if (!valid && $aP.length > 4) {
+                                valid = true;
+                                $aP.addClass(options.validClass);
+                                cN += ' ' + options.validClass;
+                            }
+
+                            var p1 = $point.offset();
+                            var p2 = $(this).offset();
+                            drawLine(p1.left, p1.top, p2.left, p2.top);
+                            $point = $(this);
+                        }
+                    });
                 });
 
-            });
+            })($root, $points);
+
         };
 
         var drawLine = function (x1, y1, x2, y2) {
             var length = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
             var angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
             var transform = 'rotate(' + angle + 'deg)';
-            var line = $('<div>')
+            return $('<div>')
                 .appendTo($root)
                 .addClass(options.lineClass)
                 .css({
@@ -126,7 +134,6 @@
                 })
                 .width(length)
                 .offset({left: x1 + 30, top: y1 + 28});
-            return line;
         };
     };
 
