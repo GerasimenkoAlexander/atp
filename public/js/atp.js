@@ -1,6 +1,6 @@
-//make good code as objects
-//as plugin for pass input and set it name on submit
-//add validation on submit on valid var
+//todo make good code as objects
+//todo as plugin for pass input and set it name on submit
+//todo add validation on submit on valid var
 
 (function ($) {
 
@@ -21,7 +21,6 @@
         }, customOptions);
 
         var $targetElement  = null;
-        var $root           = null;
         var $points         = null;
         var $point          = null;
 
@@ -60,7 +59,7 @@
         };
 
         var hangEvents = function ($elem) {
-            $root = $elem.next('.' + options.rootClass);
+            var $root = $elem.next('.' + options.rootClass);
             $points = $root.find('.' + options.pointClass);
 
             //make closure for $root and $points
@@ -110,7 +109,7 @@
 
                             var p1 = $point.offset();
                             var p2 = $(this).offset();
-                            drawLine(p1.left, p1.top, p2.left, p2.top);
+                            drawLine($root, p1.left, p1.top, p2.left, p2.top);
                             $point = $(this);
                         }
                     });
@@ -120,7 +119,7 @@
 
         };
 
-        var drawLine = function (x1, y1, x2, y2) {
+        var drawLine = function ($root, x1, y1, x2, y2) {
             var length = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
             var angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
             var transform = 'rotate(' + angle + 'deg)';
