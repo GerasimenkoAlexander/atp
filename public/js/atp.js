@@ -37,6 +37,11 @@
         var generateMarkup = function ($elem) {
             var root = document.createElement('div');
             root.className = options.rootClass;
+            //simple theme
+            //todo it better
+            if($elem[0].className.indexOf('dark') !== -1){
+                root.className += ' dark';
+            }
 
             for (var i = 0; i < 3; i++) {
                 var div = document.createElement('div');
