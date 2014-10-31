@@ -5,9 +5,9 @@
 (function ($) {
 
     'use strict';
-    var Atp = function () {
+    var Atp = function (customOptions) {
 
-        var options = {
+        var options = $.extend({
             triggerSelector : '#atpe',
             rootId          : 'atp',
             rowClass        : 'pRow',
@@ -18,7 +18,7 @@
             validClass      : 'valid',
     
             codeChars       : ['!', '@', '#', '$', '%', '^', '&', '*', '(']
-        };
+        }, customOptions);
 
         var $targetElement  = null;
         var $root           = null;
