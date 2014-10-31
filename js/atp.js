@@ -4,78 +4,78 @@
 
 (function ($) {
 
+    'use strict';
     var Atp = function () {
 
-        var triggerSelector = '#atpe';
-        var rootId = 'atp';
-        var rowClass = 'pRow';
-        var pointClass = 'pPoint';
-        var coreClass = 'pCore';
-        var lineClass = 'pLine';
-        var activeClass = 'active';
-        var validClass = 'valid';
+        var options = {
+            triggerSelector : '#atpe',
+            rootId          : 'atp',
+            rowClass        : 'pRow',
+            pointClass      : 'pPoint',
+            coreClass       : 'pCore',
+            lineClass       : 'pLine',
+            activeClass     : 'active',
+            validClass      : 'valid',
+    
+            codeChars       : ['!', '@', '#', '$', '%', '^', '&', '*', '(']
+        };
 
-        var codeChars = ['!', '@', '#', '$', '%', '^', '&', '*', '('];
-
-        var $targetElement = null;
-        var $root = null;
-        var $points = null;
-        var $point = null;
+        var $targetElement  = null;
+        var $root           = null;
+        var $points         = null;
+        var $point          = null;
 
         this.init = function () {
-            $targetElement = $(triggerSelector);
+            $targetElement = $(options.triggerSelector);
             if ($targetElement) {
                 generateMarkup();
-                $targetElement.css('display', 'none');
                 hangEvents();
             }
         };
 
         var generateMarkup = function () {
-            root = document.createElement('div');
-            root.id = rootId;
-            for (var i = 0; i < 3; i++) {
+            var root = document.createElement('div');
+            root.id = options.rootId;
 
+            for (var i = 0; i < 3; i++) {
                 var div = document.createElement('div');
-                div.className = rowClass;
+                div.className = options.rowClass;
 
                 for (var j = 0; j < 3; j++) {
                     var point = document.createElement('div');
                     var core = document.createElement('div');
 
-                    point.className = pointClass;
-                    point.setAttribute("data-char", codeChars[(i * 3) + j]);
+                    core.className = options.coreClass;
 
-                    core.className = coreClass;
+                    point.className = options.pointClass;
+                    point.setAttribute("data-char", options.codeChars[(i * 3) + j]);
                     point.appendChild(core);
                     div.appendChild(point);
                 }
                 root.appendChild(div);
             }
-
             $targetElement.after(root);
-            $root = $('#' + rootId);
-
+            $root = $('#' + options.rootId);
         };
 
         var hangEvents = function () {
-            $points = $('.' + pointClass);
+            $points = $('.' + options.pointClass);
             $points.on('mousedown touchstart', function () {
 
                 var valid = false;
-                var cN = activeClass;
+                var cN = options.activeClass;
                 var code = [];
 
-                $points.removeClass(cN + ' ' + validClass);
-                $('.' + lineClass).remove();
-                $(this).addClass(activeClass);
+                $points.removeClass(cN + ' ' + options.validClass);
+                $('.' + options.lineClass).remove();
+                $(this).addClass(options.activeClass);
                 code.push($(this).data('char'));
                 $point = $(this);
 
                 $root.on('mouseleave touchleave', function (e) {
 
                     var elem = e.toElement || e.relatedTarget;
-                    if (elem.className == lineClass) {
+                    if (elem.className === options.lineClass) {
                         return false;
                     }
                     $(this).off();
@@ -88,18 +88,18 @@
                 });
 
                 $points.on('mouseover touchenter', function () {
-                    if (!$(this).hasClass(activeClass)) {
+                    if (!$(this).hasClass(options.activeClass)) {
 
                         $(this).addClass(cN);
                         //this must be before selection
-                        var $aP = $('.' + pointClass + '.' + activeClass);
+                        var $aP = $('.' + options.pointClass + '.' + options.activeClass);
 
                         code.push($(this).data('char'));
 
                         if (!valid && $aP.length > 4) {
                             valid = true;
-                            $aP.addClass(validClass);
-                            cN += ' ' + validClass;
+                            $aP.addClass(options.validClass);
+                            cN += ' ' + options.validClass;
                         }
 
                         var p1 = $point.offset();
@@ -118,7 +118,7 @@
             var transform = 'rotate(' + angle + 'deg)';
             var line = $('<div>')
                 .appendTo($root)
-                .addClass(lineClass)
+                .addClass(options.lineClass)
                 .css({
                     '-webkit-transform': transform,
                     '-ie-transform': transform,
