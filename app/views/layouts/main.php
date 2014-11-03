@@ -9,6 +9,9 @@
 </head>
 <body>
 <div id="main">
+    <div id="top-navigation">
+        <?php echo (isset($_SESSION['signin']) && $_SESSION['signin']) ? 'Hello, ' . $_SESSION['login'] . '! <a href="/?logout">Logout</a>' : '' ?>
+    </div>
     %body%
 </div>
 <div id="cover"></div>
