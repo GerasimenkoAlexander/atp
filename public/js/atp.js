@@ -1,6 +1,7 @@
 //todo make good code as objects
 //todo as plugin for pass input and set it name on submit
 //todo add validation on submit on valid var
+//todo make responsive
 
 (function ($) {
 

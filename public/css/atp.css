@@ -79,7 +79,7 @@
 /*DARK THEME*/
 
 .dark.atp .pPoint{
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(50, 50, 50, 0.4);
 }
 .dark.atp .pLine{
     background-color: white;
