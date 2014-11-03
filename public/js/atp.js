@@ -77,6 +77,8 @@
                     var cN = options.activeClass;
                     var code = [];
 
+                    $elem.val('');
+
                     $points.removeClass(cN + ' ' + options.validClass);
                     $root.find('.' + options.lineClass).remove();
                     $(this).addClass(options.activeClass);
@@ -89,11 +91,13 @@
                         if (elem.className === options.lineClass) {
                             return false;
                         }
+                        $elem.val(code.join(''));
                         $(this).off();
                         $points.off('mouseover touchenter');
                     });
 
                     $root.on('mouseup touchend', function () {
+                        $elem.val(code.join(''));
                         $(this).off();
                         $points.off('mouseover touchenter');
                     });
