@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/atp.css"/>
 </head>
 <body>
-<div id="main">
+<div id="main"> <!--todo logout and add flash messanger-->
     %body%
 </div>
 <div id="cover"></div>
