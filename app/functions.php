@@ -4,6 +4,9 @@
 
     function renderPage($name){
 
+        //this is bad idea
+        global $flash;
+
         $path = APP_PATH . '/views/' . $name . '.php';
         if(!is_file($path)){
             throw new Exception('View "' . $name . '" does not exists!');
@@ -31,6 +34,7 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        //echo '<pre>';print_r($_POST);die;
         if (isset($_POST['signup'])) {
 
             //todo good validation
@@ -73,6 +77,18 @@
             unset($_SESSION['login']);
             $_SESSION['fm'] = 'You are logout!';
             header('Location: /', null, 303);
+            die;
         }
+    }
 
+    //flash messenger
+    $flash = '';
+    if(isset($_SESSION['fm'])){
+        $flash = '<div id="FlashBlock" style="display: none">';
+        //why rand works more beautiful then mt_rand
+        $flash .= sprintf('<div style="background-color:rgb(%d,%d,%d);">', rand(60,160), rand(60,160), rand(60,160)). $_SESSION['fm'] .'</div>';
+        $flash .= '</div>';
+    }
+    if(isset($_SESSION['fm'])){
+        unset($_SESSION['fm']);
     }
