@@ -14,7 +14,6 @@
     </div>
     %body%
 </div>
-<div id="cover"></div>
 <?php echo $flash; ?>
 <script>
     document.getElementById('cover').style.backgroundImage = 'url("/css/images/bg' + Math.floor(Math.random()*3) + '.jpg")';

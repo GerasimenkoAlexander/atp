@@ -2,6 +2,11 @@
 //todo as plugin for pass input and set it name on submit
 //todo add validation on submit on valid var
 //todo make responsive
+//todo add js validation of this field and confirm field type and validation
+//todo fork me on git hub
+//todo as bower component
+//todo separate demo and lib
+//todo add google analytics
 
 (function ($) {
 
