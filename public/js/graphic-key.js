@@ -143,6 +143,7 @@
                 .addClass(options.lineClass)
                 .css({
                     '-webkit-transform': transform,
+                    '-moz-transform': transform,
                     '-ie-transform': transform,
                     'transform': transform
                 })
