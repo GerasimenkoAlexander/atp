@@ -11,11 +11,11 @@
 (function ($) {
 
     'use strict';
-    var Atp = function (customOptions) {
+    var GK = function (customOptions) {
 
         var options = $.extend({
-            triggerSelector : '.atpe',
-            rootClass       : 'atp',
+            triggerSelector : '.graphic-key-element',
+            rootClass       : 'graphic-key',
             rowClass        : 'pRow',
             pointClass      : 'pPoint',
             coreClass       : 'pCore',
@@ -151,7 +151,7 @@
         };
     };
 
-    var atp = new Atp();
-    window.onload = atp.init;
+    var gk = new GK();
+    window.onload = gk.init;
 
 })(jQuery);

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Android Typing Password</title>
     <link rel="stylesheet" type="text/css" href="/css/app.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/atp.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/graphic-key.css"/>
 </head>
 <body>
 <div id="main">
@@ -15,11 +15,8 @@
     %body%
 </div>
 <?php echo $flash; ?>
-<script>
-    document.getElementById('cover').style.backgroundImage = 'url("/css/images/bg' + Math.floor(Math.random()*3) + '.jpg")';
-</script>
 <script src="/js/jquery-2.1.1.min.js"></script>
-<script src="/js/atp.js"></script>
+<script src="/js/graphic-key.js"></script>
 <script type="text/javascript">
     $(function(){
 
