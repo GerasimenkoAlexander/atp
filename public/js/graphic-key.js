@@ -11,6 +11,9 @@
 (function ($) {
 
     'use strict';
+
+    var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
+
     var GK = function (customOptions) {
 
         var options = $.extend({
@@ -124,6 +127,7 @@
 
                             var p1 = $point.offset();
                             var p2 = $(this).offset();
+                            console.warn(p1, p2);
                             drawLine($root, p1.left, p1.top, p2.left, p2.top);
                             $point = $(this);
                         }
@@ -138,7 +142,7 @@
             var length = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
             var angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
             var transform = 'rotate(' + angle + 'deg)';
-            return $('<div>')
+            var line = $('<div>')
                 .appendTo($root)
                 .addClass(options.lineClass)
                 .css({
@@ -149,6 +153,11 @@
                 })
                 .width(length)
                 .offset({left: x1 + 30, top: y1 + 28});
+                //top -30 -26 | left -30 -2
+            if(is_firefox){
+                //1
+            }
+            return line;
         };
     };
 

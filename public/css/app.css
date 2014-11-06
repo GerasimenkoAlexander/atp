@@ -5,7 +5,8 @@ body{
     font-size: 20px;
     font-family: monospace;
     height: inherit;
-    background-color: rgb(50, 76, 124);;
+    background-color: rgb(50, 76, 124);
+    position: relative;
 }
 #main{
     /*text-align: center;*/
@@ -97,5 +98,49 @@ a{
     color: #FFFFFF;
     margin-bottom: 5px;
     padding: 10px;
+}
+
+
+.forkme {
+    display: block;
+    position: absolute;
+    top: 30px;
+    left: -75px;
+    font-family: monospace;
+    background: #FAFAFA;
+    background: -webkit-linear-gradient(#FAFAFA,#EAEAEA);
+    background: -moz-linear-gradient(#FAFAFA,#EAEAEA);
+    background: -o-linear-gradient(#FAFAFA,#EAEAEA);
+    background: -ms-linear-gradient(#FAFAFA,#EAEAEA);
+    background: linear-gradient(#FAFAFA,#EAEAEA);
+    color: black;
+    height: 44px;
+    width: 250px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 38px;
+    line-height: 32px;
+
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    border-bottom: 1px solid #CACACA;
+
+    transition: color ease 142ms;
+}
+
+.forkme span {
+    display: block;
+    text-transform: uppercase;
+    position: absolute;
+    left: 84px;
+    top: 20px;
+    font-size: 15px;
+}
+
+.forkme:hover {
+    color: #2C6EB4;
 }
 

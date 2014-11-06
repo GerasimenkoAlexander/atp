@@ -14,6 +14,7 @@
     </div>
     %body%
 </div>
+<a href="https://github.com/GerasimenkoAlexander/graphic-key" target="_blank" class="forkme">github<span>fork me on</span></a>
 <?php echo $flash; ?>
 <script src="/js/jquery-2.1.1.min.js"></script>
 <script src="/js/graphic-key.js"></script>
